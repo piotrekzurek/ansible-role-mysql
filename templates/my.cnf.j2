@@ -76,7 +76,9 @@ symbolic-links = 0
 user = mysql
 
 # http://dev.mysql.com/doc/refman/5.5/en/performance-schema.html
-;performance_schema
+{% if mysql_performance_schema %}
+performance_schema = ON
+{% endif %}
 
 # Memory settings.
 key_buffer_size = {{ mysql_key_buffer_size }}
