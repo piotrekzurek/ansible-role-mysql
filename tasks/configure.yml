@@ -36,9 +36,12 @@
   notify: restart mysql
 
 - name: Create slow query log file (if configured).
-  ansible.builtin.command: "touch {{ mysql_slow_query_log_file }}"
-  args:
-    creates: "{{ mysql_slow_query_log_file }}"
+  ansible.builtin.file:
+    path: "{{ mysql_slow_query_log_file }}"
+    state: present
+    owner: mysql
+    group: mysql
+    mode: 0644
   when: mysql_slow_query_log_enabled
 
 - name: Create datadir if it does not exist
